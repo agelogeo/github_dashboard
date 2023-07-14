@@ -1,10 +1,10 @@
-import 'package:github_dashboard/repositories/domain/entities/repository_entity.dart';
+import 'package:github_dashboard/user_repositories/domain/entities/user_repository_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'repository_data_model.g.dart';
+part 'user_repository_data_model.g.dart';
 
 @JsonSerializable()
-class RepositoryData {
+class UserRepositoryData {
   final int id;
   final String name;
   final String url;
@@ -14,7 +14,7 @@ class RepositoryData {
   @JsonKey(name: 'stargazers_count')
   final int stargazersCount;
 
-  RepositoryData({
+  UserRepositoryData({
     required this.id,
     required this.name,
     required this.url,
@@ -23,8 +23,8 @@ class RepositoryData {
     this.description,
   });
 
-  Repository toDomainModel() {
-    return Repository(
+  UserRepository toDomainModel() {
+    return UserRepository(
       id: id,
       name: name,
       url: url,
@@ -34,8 +34,8 @@ class RepositoryData {
     );
   }
 
-  factory RepositoryData.fromJson(Map<String, dynamic> json) =>
-      _$RepositoryDataFromJson(json);
+  factory UserRepositoryData.fromJson(Map<String, dynamic> json) =>
+      _$UserRepositoryDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RepositoryDataToJson(this);
+  Map<String, dynamic> toJson() => _$UserRepositoryDataToJson(this);
 }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-sealed class UserFailure {}
+sealed class UserFailure extends Equatable {}
 
 class UserNotFoundFailure extends Equatable implements UserFailure {
   final String message;
