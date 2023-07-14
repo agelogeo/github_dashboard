@@ -5,3 +5,9 @@ class UserNotFoundFailure implements UserFailure {
 
   UserNotFoundFailure(this.message);
 }
+
+class UnknownUserFailure implements UserFailure {
+  final String message;
+
+  UnknownUserFailure(this.message);
+}

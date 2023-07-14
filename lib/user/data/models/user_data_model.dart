@@ -1,3 +1,4 @@
+import 'package:github_dashboard/user/domain/entities/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_data_model.g.dart';
@@ -41,6 +42,25 @@ class UserData {
     required this.followers,
     required this.createdAt,
   });
+
+  User toDomainModel() {
+    return User(
+      name: name,
+      createdAt: createdAt,
+      followersUrl: followersUrl,
+      htmlUrl: htmlUrl,
+      login: login,
+      avatarUrl: avatarUrl,
+      location: location,
+      bio: bio,
+      publicRepos: publicRepos,
+      followers: followers,
+      reposUrl: reposUrl,
+      url: url,
+      company: company,
+      email: email,
+    );
+  }
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
