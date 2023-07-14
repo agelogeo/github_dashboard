@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_dashboard/user/presentation/bloc/user_bloc.dart';
+import 'package:github_dashboard/user/presentation/ui/widgets/user_error_page.dart';
+import 'package:github_dashboard/user/presentation/ui/widgets/user_profile_page.dart';
+import 'package:github_dashboard/user/presentation/ui/widgets/welcome_page.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -21,29 +23,16 @@ class _UserPageState extends State<UserPage> {
             builder: (context, state) {
               switch (state) {
                 case UserInitial():
-                  return const Text('Initial');
+                  return const WelcomePage();
                 case UserLoading():
-                  return const Text('Loading');
-                case UserError():
-                  return const Text('Error');
+                  return const CircularProgressIndicator();
+                case UserError(failure: final failure):
+                  return ErrorPage(failure: failure);
                 case UserLoaded(user: final user):
-                  return Column(
-                    children: [
-                      Text('${user.login}'),
-                      Text('${user.publicRepos}'),
-                    ],
-                  );
+                  return UserProfilePage(user: user);
               }
             },
           ),
-          ElevatedButton(
-            onPressed: () {
-              context.read<UserBloc>().add(
-                    GetUserProfile(username: "c9s"),
-                  );
-            },
-            child: Text("Get User"),
-          )
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_dashboard/search/presentation/cubit/search_cubit.dart';
 import 'package:github_dashboard/search/presentation/ui/search_page.dart';
-import 'package:github_dashboard/user/presentation/ui/user_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_dashboard/user/data/repositories/user_repository.dart';
@@ -11,7 +10,7 @@ void main() {
   runApp(const MyApp());
 }
 
-const primaryColor = Color(0xFFff6c02);
+const primaryColor = Color(0xFF1DA1F2);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -53,41 +53,9 @@ class _SearchPageState extends State<SearchPage> {
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 70,
-            title: BlocBuilder<SearchCubit, SearchState>(
-              builder: (context, state) {
-                return Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _searchFocusNode.hasFocus
-                        ? IconButton(
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.white,
-                            ),
-                            onPressed: () => _searchFocusNode.unfocus(),
-                          )
-                        : Container(),
-                    Flexible(
-                      child: SizedBox(
-                        height: 45,
-                        child: CupertinoSearchTextField(
-                          controller: _queryTextController,
-                          autofocus: false,
-                          focusNode: _searchFocusNode,
-                          style: const TextStyle(color: Colors.white),
-                          decoration: BoxDecoration(
-                              color: Colors.white10,
-                              borderRadius: BorderRadius.circular(10)),
-                          onSubmitted: (value) {
-                            context.read<SearchCubit>().addSearchTerm(value);
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+            title: SearchTextField(
+                searchFocusNode: _searchFocusNode,
+                queryTextController: _queryTextController),
           ),
           body: BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
@@ -99,6 +67,57 @@ class _SearchPageState extends State<SearchPage> {
               }
             },
           )),
+    );
+  }
+}
+
+class SearchTextField extends StatelessWidget {
+  const SearchTextField({
+    super.key,
+    required FocusNode searchFocusNode,
+    required TextEditingController queryTextController,
+  })  : _searchFocusNode = searchFocusNode,
+        _queryTextController = queryTextController;
+
+  final FocusNode _searchFocusNode;
+  final TextEditingController _queryTextController;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _searchFocusNode.hasFocus
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => _searchFocusNode.unfocus(),
+                  )
+                : Container(),
+            Flexible(
+              child: SizedBox(
+                height: 45,
+                child: CupertinoSearchTextField(
+                  controller: _queryTextController,
+                  autofocus: false,
+                  focusNode: _searchFocusNode,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: BoxDecoration(
+                      color: Colors.white10,
+                      borderRadius: BorderRadius.circular(10)),
+                  onSubmitted: (value) {
+                    context.read<SearchCubit>().addSearchTerm(value);
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
