@@ -100,7 +100,7 @@ class RecentRepositoriesList extends StatelessWidget {
     required this.repositories,
   });
 
-  final List<Follower> repositories;
+  final List<UserRepository> repositories;
 
   @override
   Widget build(BuildContext context) {

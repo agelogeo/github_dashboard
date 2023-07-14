@@ -21,7 +21,7 @@ class RepositoryError extends RepositoryState {
 class RepositoryLoading extends RepositoryState {}
 
 class RepositoryLoaded extends RepositoryState {
-  final List<Follower> repositories;
+  final List<UserRepository> repositories;
 
   const RepositoryLoaded({required this.repositories});
 

@@ -13,8 +13,8 @@ class UserRepositoryRepository implements IUserRepositoryRepository {
   UserRepositoryRepository({required this.client});
 
   @override
-  Future<Either<UserRepositoryFailure, List<Follower>>> getUserRepositories(
-      String username) async {
+  Future<Either<UserRepositoryFailure, List<UserRepository>>>
+      getUserRepositories(String username) async {
     try {
       final response = await client.get(Uri.parse(
           'https://api.github.com/users/$username/repos?per_page=100'));
