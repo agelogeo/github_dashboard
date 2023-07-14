@@ -5,3 +5,9 @@ class FollowerNotFoundFailure implements FollowerFailure {
 
   FollowerNotFoundFailure(this.message);
 }
+
+class UnknownFollowerFailure implements FollowerFailure {
+  final String message;
+
+  UnknownFollowerFailure(this.message);
+}
