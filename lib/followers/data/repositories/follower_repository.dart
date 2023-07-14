@@ -16,11 +16,11 @@ class FollowerRepository implements IFollowerRepository {
   Future<Either<FollowerFailure, List<Follower>>> getUserFollowers(
       String username) async {
     try {
-      final response = await client
-          .get(Uri.parse('https://api.github.com/users/$username/followers'));
+      final response = await client.get(Uri.parse(
+          'https://api.github.com/users/$username/followers?per_page=100'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        final List<FollowerData> followers = data
+        final List<FollowerData> followers = (data as List)
             .map((followerData) => FollowerData.fromJson(followerData))
             .toList();
         return Right(
@@ -29,7 +29,7 @@ class FollowerRepository implements IFollowerRepository {
       } else if (response.statusCode == 403) {
         return const Left(RateLimitExceeded('Rate limit exceeded'));
       } else {
-        return Left(FollowerNotFoundFailure('Followers not found'));
+        return const Left(FollowerNotFoundFailure('Followers not found'));
       }
     } catch (e) {
       return Left(UnknownFollowerFailure(e.toString()));
