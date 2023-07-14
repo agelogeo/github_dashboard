@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:github_dashboard/repositories/data/models/repository_data_model.dart';
+import 'package:github_dashboard/user_repositories/data/models/user_repository_data_model.dart';
 
 void main() {
   group('RepositoriesData', () {
@@ -12,7 +12,7 @@ void main() {
       final data = jsonDecode(json) as List;
 
       final repoDataList =
-          data.map((item) => RepositoryData.fromJson(item)).toList();
+          data.map((item) => UserRepositoryData.fromJson(item)).toList();
 
       expect(repoDataList[0].id, 460428);
       expect(repoDataList[0].name, 'ack.vim');

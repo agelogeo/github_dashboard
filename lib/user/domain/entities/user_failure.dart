@@ -1,13 +1,21 @@
-sealed class UserFailure {}
+import 'package:equatable/equatable.dart';
 
-class UserNotFoundFailure implements UserFailure {
+sealed class UserFailure extends Equatable {}
+
+class UserNotFoundFailure extends Equatable implements UserFailure {
   final String message;
 
-  UserNotFoundFailure(this.message);
+  const UserNotFoundFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
 
-class UnknownUserFailure implements UserFailure {
+class UnknownUserFailure extends Equatable implements UserFailure {
   final String message;
 
-  UnknownUserFailure(this.message);
+  const UnknownUserFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
