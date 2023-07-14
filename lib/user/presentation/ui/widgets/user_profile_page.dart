@@ -4,10 +4,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_dashboard/core/assets.dart';
+import 'package:github_dashboard/followers/presentation/ui/followers_page.dart';
 import 'package:github_dashboard/user/domain/entities/user_entity.dart';
 import 'package:github_dashboard/user/presentation/ui/widgets/user_error_page.dart';
 import 'package:github_dashboard/user_repositories/domain/entities/user_repository_entity.dart';
 import 'package:github_dashboard/user_repositories/presentation/bloc/repository_bloc.dart';
+import 'package:github_dashboard/user_repositories/presentation/ui/repositories_page.dart';
 import 'package:intl/intl.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -67,8 +69,14 @@ class RecentRepos extends StatelessWidget {
                     ),
               ),
               TextButton(
-                child: Text('See all'),
-                onPressed: () {},
+                child: const Text('See all'),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const UserRepositoriesPage(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -99,7 +107,7 @@ class RecentRepositoriesList extends StatelessWidget {
     required this.repositories,
   });
 
-  final List<Follower> repositories;
+  final List<UserRepository> repositories;
 
   @override
   Widget build(BuildContext context) {
@@ -164,10 +172,17 @@ class Overview extends StatelessWidget {
             text: 'Repositories',
             quantity: user.publicRepos,
           ),
-          NumberOverview(
-            icon: Icons.people_outlined,
-            text: 'Followers',
-            quantity: user.followers,
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const FollowersPage();
+              }));
+            },
+            child: NumberOverview(
+              icon: Icons.people_outlined,
+              text: 'Followers',
+              quantity: user.followers,
+            ),
           ),
           OverviewInfo(
             visible: true,

@@ -13,6 +13,10 @@ class UserRepositoryData {
   final String? description;
   @JsonKey(name: 'stargazers_count')
   final int stargazersCount;
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
 
   UserRepositoryData({
     required this.id,
@@ -20,16 +24,20 @@ class UserRepositoryData {
     required this.url,
     required this.htmlUrl,
     required this.stargazersCount,
+    required this.updatedAt,
+    required this.createdAt,
     this.description,
   });
 
-  Follower toDomainModel() {
-    return Follower(
+  UserRepository toDomainModel() {
+    return UserRepository(
       id: id,
       name: name,
       url: url,
       htmlUrl: htmlUrl,
       description: description,
+      updatedAt: updatedAt,
+      createdAt: createdAt,
       stargazersCount: stargazersCount,
     );
   }

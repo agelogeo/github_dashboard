@@ -11,14 +11,13 @@ class FollowersBloc extends Bloc<FollowersEvent, FollowersState> {
   final IFollowerRepository followerRepository;
   FollowersBloc({required this.followerRepository})
       : super(FollowersInitial()) {
-    on<GetUserFollowers>((event, emit) {
+    on<GetUserFollowers>((event, emit) async {
       emit(FollowersLoading());
-      followerRepository.getUserFollowers(event.username).then((result) {
-        result.fold(
-          (failure) => emit(FollowersError(failure: failure)),
-          (followers) => emit(FollowersLoaded(followers: followers)),
-        );
-      });
+      final result = await followerRepository.getUserFollowers(event.username);
+      result.fold(
+        (failure) => emit(FollowersError(failure: failure)),
+        (followers) => emit(FollowersLoaded(followers: followers)),
+      );
     });
   }
 }

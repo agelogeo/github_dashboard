@@ -3,6 +3,6 @@ import 'package:github_dashboard/user_repositories/domain/entities/user_reposito
 import 'package:github_dashboard/user_repositories/domain/entities/user_repository_failure.dart';
 
 abstract class IUserRepositoryRepository {
-  Future<Either<UserRepositoryFailure, List<Follower>>> getUserRepositories(
-      String username);
+  Future<Either<UserRepositoryFailure, List<UserRepository>>>
+      getUserRepositories(String username);
 }
