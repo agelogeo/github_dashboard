@@ -23,7 +23,12 @@ class UserPage extends StatelessWidget {
                   case UserError():
                     return const Text('Error');
                   case UserLoaded(user: final user):
-                    return Text('${user.login}');
+                    return Column(
+                      children: [
+                        Text('${user.login}'),
+                        Text('${user.publicRepos}'),
+                      ],
+                    );
                 }
               },
             ),

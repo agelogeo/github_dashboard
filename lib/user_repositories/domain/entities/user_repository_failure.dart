@@ -1,13 +1,23 @@
-sealed class UserRepositoryFailure {}
+import 'package:equatable/equatable.dart';
 
-class UserRepositoryNotFoundFailure implements UserRepositoryFailure {
+sealed class UserRepositoryFailure extends Equatable {}
+
+class UserRepositoryNotFoundFailure extends Equatable
+    implements UserRepositoryFailure {
   final String message;
 
-  UserRepositoryNotFoundFailure(this.message);
+  const UserRepositoryNotFoundFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
 
-class UserUnknownRepositoryFailure implements UserRepositoryFailure {
+class UserUnknownRepositoryFailure extends Equatable
+    implements UserRepositoryFailure {
   final String message;
 
-  UserUnknownRepositoryFailure(this.message);
+  const UserUnknownRepositoryFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
