@@ -1,13 +1,21 @@
+import 'package:equatable/equatable.dart';
+
 sealed class FollowerFailure {}
 
-class FollowerNotFoundFailure implements FollowerFailure {
+class FollowerNotFoundFailure extends Equatable implements FollowerFailure {
   final String message;
 
-  FollowerNotFoundFailure(this.message);
+  const FollowerNotFoundFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
 
-class UnknownFollowerFailure implements FollowerFailure {
+class UnknownFollowerFailure extends Equatable implements FollowerFailure {
   final String message;
 
-  UnknownFollowerFailure(this.message);
+  const UnknownFollowerFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
 }

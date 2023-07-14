@@ -23,8 +23,8 @@ class UserRepositoryData {
     this.description,
   });
 
-  UserRepository toDomainModel() {
-    return UserRepository(
+  Follower toDomainModel() {
+    return Follower(
       id: id,
       name: name,
       url: url,

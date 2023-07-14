@@ -1,4 +1,4 @@
-class UserRepository {
+class Follower {
   final int id;
   final String name;
   final String url;
@@ -6,7 +6,7 @@ class UserRepository {
   final String? description;
   final int stargazersCount;
 
-  UserRepository({
+  Follower({
     required this.id,
     required this.name,
     required this.url,

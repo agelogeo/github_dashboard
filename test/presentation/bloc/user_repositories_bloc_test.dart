@@ -21,7 +21,7 @@ class MockUserRepositoryRepository extends Mock
 
 void main() {
   late MockUserRepositoryRepository repositoryRepository;
-  late List<UserRepository> repositories;
+  late List<Follower> repositories;
 
   setUp(() async {
     repositoryRepository = MockUserRepositoryRepository();
@@ -35,7 +35,7 @@ void main() {
   });
 
   blocTest<RepositoryBloc, RepositoryState>(
-    'emits [UserLoading, UserLoaded] when GetUserProfile successful',
+    'emits [RepositoryLoading, RepositoryLoaded] when GetUserRepositories successful',
     build: () {
       when(() => repositoryRepository.getUserRepositories(any()))
           .thenAnswer((_) async => Right(repositories));
@@ -49,7 +49,7 @@ void main() {
   );
 
   blocTest<RepositoryBloc, RepositoryState>(
-    'emits [UserLoading, UserError] when GetUserProfile fails',
+    'emits [RepositoryLoading, RepositoryError] when GetUserRepositories fails',
     build: () {
       when(() => repositoryRepository.getUserRepositories(any())).thenAnswer(
           (_) async =>
