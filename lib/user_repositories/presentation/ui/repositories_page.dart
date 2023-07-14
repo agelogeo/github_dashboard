@@ -67,10 +67,18 @@ class UserRepositoriesPage extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: const Text('Stars'),
+                title: const Text('Stars (Ascending)'),
                 onTap: () {
-                  context.read<RepositoryBloc>().add(
-                      const SortRepositories(sortOption: SortOption.stars));
+                  context.read<RepositoryBloc>().add(const SortRepositories(
+                      sortOption: SortOption.starsAscending));
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Stars (Descending)'),
+                onTap: () {
+                  context.read<RepositoryBloc>().add(const SortRepositories(
+                      sortOption: SortOption.startsDescending));
                   Navigator.pop(context);
                 },
               ),

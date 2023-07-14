@@ -33,5 +33,6 @@ class RepositoryLoaded extends RepositoryState {
 
 enum SortOption {
   none,
-  stars,
+  starsAscending,
+  startsDescending,
 }
