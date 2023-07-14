@@ -1,3 +1,4 @@
+import 'package:github_dashboard/followers/domain/entities/follower_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'follower_data_model.g.dart';
@@ -14,6 +15,14 @@ class FollowerData {
     required this.login,
     required this.avatarUrl,
   });
+
+  Follower toDomainModel() {
+    return Follower(
+      name: name,
+      login: login,
+      avatarUrl: avatarUrl,
+    );
+  }
 
   factory FollowerData.fromJson(Map<String, dynamic> json) =>
       _$FollowerDataFromJson(json);
