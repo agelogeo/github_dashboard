@@ -1,3 +1,4 @@
+import 'package:github_dashboard/repositories/domain/entities/repository_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'repository_data_model.g.dart';
@@ -21,6 +22,17 @@ class RepositoryData {
     required this.stargazersCount,
     this.description,
   });
+
+  Repository toDomainModel() {
+    return Repository(
+      id: id,
+      name: name,
+      url: url,
+      htmlUrl: htmlUrl,
+      description: description,
+      stargazersCount: stargazersCount,
+    );
+  }
 
   factory RepositoryData.fromJson(Map<String, dynamic> json) =>
       _$RepositoryDataFromJson(json);

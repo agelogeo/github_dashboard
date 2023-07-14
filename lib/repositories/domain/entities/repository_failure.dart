@@ -5,3 +5,9 @@ class RepositoryNotFoundFailure implements RepositoryFailure {
 
   RepositoryNotFoundFailure(this.message);
 }
+
+class UnknownRepositoryFailure implements RepositoryFailure {
+  final String message;
+
+  UnknownRepositoryFailure(this.message);
+}
