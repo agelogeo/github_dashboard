@@ -28,8 +28,11 @@ class UserRepositoryRepository implements IUserRepositoryRepository {
         return Right(
           repos.map((repo) => repo.toDomainModel()).toList(),
         );
+      } else if (response.statusCode == 403) {
+        return const Left(RateLimitExceeded('Rate limit exceeded'));
       } else {
-        return Left(UserRepositoryNotFoundFailure('Repositories not found'));
+        return const Left(
+            UserRepositoryNotFoundFailure('Repositories not found'));
       }
     } catch (e) {
       return Left(UserUnknownRepositoryFailure((e.toString())));
