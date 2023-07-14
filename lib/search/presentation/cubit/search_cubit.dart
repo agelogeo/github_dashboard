@@ -29,6 +29,6 @@ class SearchCubit extends Cubit<SearchState> {
       }
       newSearches.insert(0, term);
     }
-    emit(state.copyWith(recentSearches: newSearches));
+    emit(SearchIdle(recentSearches: newSearches));
   }
 }

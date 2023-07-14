@@ -11,13 +11,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final IUserRepository userRepository;
 
   UserBloc({required this.userRepository}) : super(UserInitial()) {
-    on<GetUserProfile>((event, emit) async {
-      emit(UserLoading());
-      final result = await userRepository.getUserProfile(event.username);
-      result.fold(
-        (failure) => emit(UserError(failure: failure)),
-        (user) => emit(UserLoaded(user: user)),
-      );
-    });
+    on<GetUserProfile>(
+      (event, emit) async {
+        emit(UserLoading());
+        final result = await userRepository.getUserProfile(event.username);
+        result.fold(
+          (failure) => emit(UserError(failure: failure)),
+          (user) => emit(UserLoaded(user: user)),
+        );
+      },
+    );
   }
 }

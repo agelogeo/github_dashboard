@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_dashboard/search/presentation/cubit/search_cubit.dart';
+import 'package:github_dashboard/user/presentation/bloc/user_bloc.dart';
 
 class RecentSearches extends StatelessWidget {
   const RecentSearches({super.key});
@@ -22,11 +23,7 @@ class RecentSearches extends StatelessWidget {
                       leading: const Icon(Icons.history),
                       title: Text(item),
                       onTap: () {
-                        // context.read<UserCubit>().searchResults(query: item);
-                        // setState(() {
-                        //   widget.controller.text = item;
-                        //   widget.focusNode.unfocus();
-                        // });
+                        context.read<SearchCubit>().addSearchTerm(item);
                       },
                     );
                   },
