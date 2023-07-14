@@ -2,6 +2,7 @@ abstract class Assets {
   static const _assetsPath = 'assets/';
 
   static const illustrations = _Illustrations(_assetsPath);
+  static const icons = _Icons(_assetsPath);
 }
 
 class _Illustrations {
@@ -15,4 +16,13 @@ class _Illustrations {
       : noData = '$assetsPath${_path}no_data.svg',
         welcome = '$assetsPath${_path}hello.svg',
         wait = '$assetsPath${_path}wait.svg';
+}
+
+class _Icons {
+  static const _path = 'icons/';
+
+  final String github;
+
+  const _Icons(String assetsPath)
+      : github = '$assetsPath${_path}github_logo.png';
 }

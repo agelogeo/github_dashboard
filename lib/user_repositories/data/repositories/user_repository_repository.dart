@@ -20,7 +20,7 @@ class UserRepositoryRepository implements IUserRepositoryRepository {
           .get(Uri.parse('https://api.github.com/users/$username/repos'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        final List<UserRepositoryData> repos = data
+        final List<UserRepositoryData> repos = (data as List)
             .map(
               (repoData) => UserRepositoryData.fromJson(repoData),
             )

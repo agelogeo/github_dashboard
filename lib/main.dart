@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:github_dashboard/followers/data/repositories/follower_repository.dart';
+import 'package:github_dashboard/followers/presentation/bloc/followers_bloc.dart';
 import 'package:github_dashboard/search/presentation/cubit/search_cubit.dart';
 import 'package:github_dashboard/search/presentation/ui/search_page.dart';
+import 'package:github_dashboard/user_repositories/data/repositories/user_repository_repository.dart';
+import 'package:github_dashboard/user_repositories/presentation/bloc/repository_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_dashboard/user/data/repositories/user_repository.dart';
@@ -22,6 +26,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               UserBloc(userRepository: UserRepository(client: http.Client())),
+        ),
+        BlocProvider(
+          create: (context) => FollowersBloc(
+              followerRepository: FollowerRepository(client: http.Client())),
+        ),
+        BlocProvider(
+          create: (context) => RepositoryBloc(
+              repositoryRepository:
+                  UserRepositoryRepository(client: http.Client())),
         ),
         BlocProvider(create: (context) => SearchCubit()),
       ],
