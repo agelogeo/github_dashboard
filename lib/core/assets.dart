@@ -9,8 +9,10 @@ class _Illustrations {
 
   final String noData;
   final String welcome;
+  final String wait;
 
   const _Illustrations(String assetsPath)
       : noData = '$assetsPath${_path}no_data.svg',
-        welcome = '$assetsPath${_path}hello.svg';
+        welcome = '$assetsPath${_path}hello.svg',
+        wait = '$assetsPath${_path}wait.svg';
 }

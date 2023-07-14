@@ -19,20 +19,37 @@ class ErrorPage extends StatelessWidget {
         SizedBox(
           width: 300,
           height: 250,
-          child: SvgPicture.asset(
-            Assets.illustrations.noData,
-          ),
+          child: SvgPicture.asset(errorIllustration()),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 40.0),
           child: Text(
-            failure is UserNotFoundFailure
-                ? 'User not found'
-                : 'An error occurred',
+            errorMessage(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ],
     );
+  }
+
+  String errorIllustration() {
+    switch (failure) {
+      case UserNotFoundFailure():
+      case UnknownUserFailure():
+        return Assets.illustrations.noData;
+      case RateLimitExceeded():
+        return Assets.illustrations.wait;
+    }
+  }
+
+  String errorMessage() {
+    switch (failure) {
+      case UserNotFoundFailure(message: final msg):
+        return msg;
+      case RateLimitExceeded(message: final msg):
+        return msg;
+      case UnknownUserFailure(message: final msg):
+        return msg;
+    }
   }
 }
