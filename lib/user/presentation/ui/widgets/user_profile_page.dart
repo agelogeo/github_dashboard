@@ -9,6 +9,7 @@ import 'package:github_dashboard/user/domain/entities/user_entity.dart';
 import 'package:github_dashboard/user/presentation/ui/widgets/user_error_page.dart';
 import 'package:github_dashboard/user_repositories/domain/entities/user_repository_entity.dart';
 import 'package:github_dashboard/user_repositories/presentation/bloc/repository_bloc.dart';
+import 'package:github_dashboard/user_repositories/presentation/ui/repositories_page.dart';
 import 'package:intl/intl.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -69,7 +70,13 @@ class RecentRepos extends StatelessWidget {
               ),
               TextButton(
                 child: const Text('See all'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const UserRepositoriesPage(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

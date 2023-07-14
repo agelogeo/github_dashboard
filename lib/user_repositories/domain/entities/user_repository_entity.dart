@@ -5,6 +5,7 @@ class UserRepository {
   final String htmlUrl;
   final String? description;
   final int stargazersCount;
+  final DateTime updatedAt;
 
   UserRepository({
     required this.id,
@@ -12,6 +13,7 @@ class UserRepository {
     required this.url,
     required this.htmlUrl,
     required this.stargazersCount,
+    required this.updatedAt,
     this.description,
   });
 }
