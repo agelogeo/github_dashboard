@@ -19,3 +19,12 @@ class UnknownUserFailure extends Equatable implements UserFailure {
   @override
   List<Object> get props => [message];
 }
+
+class RateLimitExceeded extends Equatable implements UserFailure {
+  final String message;
+
+  const RateLimitExceeded(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

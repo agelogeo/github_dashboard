@@ -21,6 +21,8 @@ class UserRepository implements IUserRepository {
         final data = json.decode(response.body);
         final user = UserData.fromJson(data);
         return Right(user.toDomainModel());
+      } else if (response.statusCode == 403) {
+        return const Left(RateLimitExceeded('Rate limit exceeded'));
       } else {
         return Left(UserNotFoundFailure('User not found'));
       }

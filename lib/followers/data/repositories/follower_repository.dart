@@ -26,6 +26,8 @@ class FollowerRepository implements IFollowerRepository {
         return Right(
           followers.map((follower) => follower.toDomainModel()).toList(),
         );
+      } else if (response.statusCode == 403) {
+        return const Left(RateLimitExceeded('Rate limit exceeded'));
       } else {
         return Left(FollowerNotFoundFailure('Followers not found'));
       }

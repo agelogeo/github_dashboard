@@ -20,7 +20,7 @@ class UserRepositoryRepository implements IUserRepositoryRepository {
           .get(Uri.parse('https://api.github.com/users/$username/repos'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        final List<UserRepositoryData> repos = data
+        final List<UserRepositoryData> repos = (data as List)
             .map(
               (repoData) => UserRepositoryData.fromJson(repoData),
             )
@@ -28,8 +28,11 @@ class UserRepositoryRepository implements IUserRepositoryRepository {
         return Right(
           repos.map((repo) => repo.toDomainModel()).toList(),
         );
+      } else if (response.statusCode == 403) {
+        return const Left(RateLimitExceeded('Rate limit exceeded'));
       } else {
-        return Left(UserRepositoryNotFoundFailure('Repositories not found'));
+        return const Left(
+            UserRepositoryNotFoundFailure('Repositories not found'));
       }
     } catch (e) {
       return Left(UserUnknownRepositoryFailure((e.toString())));
