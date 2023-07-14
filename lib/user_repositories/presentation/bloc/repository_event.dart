@@ -15,3 +15,12 @@ class GetUserRepositories extends RepositoryEvent {
   @override
   List<Object> get props => [username];
 }
+
+class SortRepositories extends RepositoryEvent {
+  final SortOption sortOption;
+
+  const SortRepositories({required this.sortOption});
+
+  @override
+  List<Object> get props => [sortOption];
+}

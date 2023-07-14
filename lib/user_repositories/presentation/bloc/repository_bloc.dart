@@ -19,8 +19,34 @@ class RepositoryBloc extends Bloc<RepositoryEvent, RepositoryState> {
       );
       result.fold(
         (failure) => emit(RepositoryError(failure: failure)),
-        (repositories) => emit(RepositoryLoaded(repositories: repositories)),
+        (repositories) => emit(RepositoryLoaded(
+            repositories: repositories, sortOption: SortOption.none)),
       );
     });
+
+    on<SortRepositories>((event, emit) async {
+      final currentState = state;
+      if (currentState is RepositoryLoaded) {
+        final sortedRepositories = _sortRepositories(
+          currentState.repositories,
+          event.sortOption,
+        );
+        emit(RepositoryLoaded(
+            repositories: sortedRepositories, sortOption: event.sortOption));
+      }
+    });
+  }
+
+  List<UserRepository> _sortRepositories(
+    List<UserRepository> repositories,
+    SortOption sortOption,
+  ) {
+    switch (sortOption) {
+      case SortOption.none:
+        return repositories..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+      case SortOption.stars:
+        return repositories
+          ..sort((a, b) => b.stargazersCount.compareTo(a.stargazersCount));
+    }
   }
 }

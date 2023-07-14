@@ -11,18 +11,26 @@ class UserRepositoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: BlocBuilder<RepositoryBloc, RepositoryState>(
-        builder: (context, state) {
-          switch (state) {
-            case RepositoryInitial():
-            case RepositoryLoading():
-            case RepositoryError():
-              return const Text("Repositories");
-            case RepositoryLoaded(repositories: final repos):
-              return Text("${repos.length} Repositories");
-          }
-        },
-      )),
+      appBar: AppBar(
+        title: BlocBuilder<RepositoryBloc, RepositoryState>(
+          builder: (context, state) {
+            switch (state) {
+              case RepositoryInitial():
+              case RepositoryLoading():
+              case RepositoryError():
+                return const Text("Repositories");
+              case RepositoryLoaded(repositories: final repos):
+                return Text("${repos.length} Repositories");
+            }
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.sort),
+            onPressed: () => _showSortMenu(context),
+          ),
+        ],
+      ),
       body: BlocBuilder<RepositoryBloc, RepositoryState>(
         builder: (context, state) {
           switch (state) {
@@ -37,6 +45,39 @@ class UserRepositoriesPage extends StatelessWidget {
           }
         },
       ),
+    );
+  }
+
+  void _showSortMenu(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Sort by'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title: const Text('None'),
+                onTap: () {
+                  context
+                      .read<RepositoryBloc>()
+                      .add(const SortRepositories(sortOption: SortOption.none));
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Stars'),
+                onTap: () {
+                  context.read<RepositoryBloc>().add(
+                      const SortRepositories(sortOption: SortOption.stars));
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

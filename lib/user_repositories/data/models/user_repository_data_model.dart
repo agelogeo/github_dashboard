@@ -15,6 +15,8 @@ class UserRepositoryData {
   final int stargazersCount;
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
 
   UserRepositoryData({
     required this.id,
@@ -23,6 +25,7 @@ class UserRepositoryData {
     required this.htmlUrl,
     required this.stargazersCount,
     required this.updatedAt,
+    required this.createdAt,
     this.description,
   });
 
@@ -34,6 +37,7 @@ class UserRepositoryData {
       htmlUrl: htmlUrl,
       description: description,
       updatedAt: updatedAt,
+      createdAt: createdAt,
       stargazersCount: stargazersCount,
     );
   }

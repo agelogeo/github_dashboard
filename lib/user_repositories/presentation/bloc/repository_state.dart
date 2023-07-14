@@ -22,9 +22,16 @@ class RepositoryLoading extends RepositoryState {}
 
 class RepositoryLoaded extends RepositoryState {
   final List<UserRepository> repositories;
+  final SortOption sortOption;
 
-  const RepositoryLoaded({required this.repositories});
+  const RepositoryLoaded(
+      {required this.repositories, required this.sortOption});
 
   @override
-  List<Object> get props => [repositories];
+  List<Object> get props => [repositories, sortOption];
+}
+
+enum SortOption {
+  none,
+  stars,
 }
