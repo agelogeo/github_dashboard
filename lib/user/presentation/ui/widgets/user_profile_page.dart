@@ -290,7 +290,7 @@ class Bio extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: AutoSizeText(
-        "${user.bio}",
+        user.bio ?? '',
         maxLines: 4,
         style: Theme.of(context).textTheme.titleMedium,
       ),
