@@ -39,7 +39,7 @@ void main() {
     act: (bloc) => bloc.add(const GetUserRepositories(username: 'testUser')),
     expect: () => [
       RepositoryLoading(),
-      RepositoryLoaded(repositories: repositories),
+      RepositoryLoaded(repositories: repositories, sortOption: SortOption.none),
     ],
   );
 
