@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_dashboard/user_repositories/domain/entities/user_repository_entity.dart';
 import 'package:github_dashboard/user_repositories/presentation/bloc/repository_bloc.dart';
@@ -10,40 +11,43 @@ class UserRepositoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: BlocBuilder<RepositoryBloc, RepositoryState>(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        appBar: AppBar(
+          title: BlocBuilder<RepositoryBloc, RepositoryState>(
+            builder: (context, state) {
+              switch (state) {
+                case RepositoryInitial():
+                case RepositoryLoading():
+                case RepositoryError():
+                  return const Text("Repositories");
+                case RepositoryLoaded(repositories: final repos):
+                  return Text("${repos.length} Repositories");
+              }
+            },
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.sort),
+              onPressed: () => _showSortMenu(context),
+            ),
+          ],
+        ),
+        body: BlocBuilder<RepositoryBloc, RepositoryState>(
           builder: (context, state) {
             switch (state) {
               case RepositoryInitial():
+                return const Center(child: CircularProgressIndicator());
               case RepositoryLoading():
-              case RepositoryError():
-                return const Text("Repositories");
+                return const Center(child: CircularProgressIndicator());
+              case RepositoryError(failure: final failure):
+                return UserRepositoriesErrorPage(failure: failure);
               case RepositoryLoaded(repositories: final repos):
-                return Text("${repos.length} Repositories");
+                return RepositoriesList(repositories: repos);
             }
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.sort),
-            onPressed: () => _showSortMenu(context),
-          ),
-        ],
-      ),
-      body: BlocBuilder<RepositoryBloc, RepositoryState>(
-        builder: (context, state) {
-          switch (state) {
-            case RepositoryInitial():
-              return const Center(child: CircularProgressIndicator());
-            case RepositoryLoading():
-              return const Center(child: CircularProgressIndicator());
-            case RepositoryError(failure: final failure):
-              return UserRepositoriesErrorPage(failure: failure);
-            case RepositoryLoaded(repositories: final repos):
-              return RepositoriesList(repositories: repos);
-          }
-        },
       ),
     );
   }

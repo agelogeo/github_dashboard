@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_dashboard/search/presentation/cubit/search_cubit.dart';
@@ -50,23 +51,26 @@ class _SearchPageState extends State<SearchPage> {
               .add(GetUserProfile(username: state.recentSearches.first));
         }
       },
-      child: Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 70,
-            title: SearchTextField(
-                searchFocusNode: _searchFocusNode,
-                queryTextController: _queryTextController),
-          ),
-          body: BlocBuilder<SearchCubit, SearchState>(
-            builder: (context, state) {
-              switch (state) {
-                case SearchIdle():
-                  return const UserPage();
-                case SearchActive():
-                  return const RecentSearches();
-              }
-            },
-          )),
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 70,
+              title: SearchTextField(
+                  searchFocusNode: _searchFocusNode,
+                  queryTextController: _queryTextController),
+            ),
+            body: BlocBuilder<SearchCubit, SearchState>(
+              builder: (context, state) {
+                switch (state) {
+                  case SearchIdle():
+                    return const UserPage();
+                  case SearchActive():
+                    return const RecentSearches();
+                }
+              },
+            )),
+      ),
     );
   }
 }
